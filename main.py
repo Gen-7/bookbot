@@ -1,4 +1,5 @@
 from stats import get_num_words
+from stats import count_character
 
 # Reads entire book into memory at once since we need the complete text
 # for accurate word count and the file size is manageable
@@ -12,7 +13,11 @@ def get_book_text(filepath):
 def main():
     book_text = get_book_text("books/frankenstein.txt")
     num_words = get_num_words(book_text)
+    num_char = count_character(book_text)
     print(f"{num_words} words found in the document")
+    
+    for char in num_char:
+        print(f"'{char}': {num_char[char]}")
 
 # Guards against running main() if this file is imported as a module
 if __name__ == "__main__":
