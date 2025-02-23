@@ -20,3 +20,10 @@ def count_character(book):
         else:
             char_count[char] = 1
     return char_count
+
+def sort_character(unsorted_char_count):
+    count_pairs = unsorted_char_count.items()
+    list_of_pairs = list(count_pairs)
+    list_of_pairs.sort(key=lambda x: x[1], reverse=True)
+    count_dict = [{char: count} for char, count in list_of_pairs]
+    return count_dict
