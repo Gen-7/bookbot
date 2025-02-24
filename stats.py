@@ -26,4 +26,4 @@ def sort_character(unsorted_char_count):
     count_pairs = unsorted_char_count.items()
     list_of_pairs = list(count_pairs)
     list_of_pairs.sort(key=lambda x: x[1], reverse=True)
-    return count_dict
+    return list_of_pairs
