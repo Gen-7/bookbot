@@ -1,10 +1,11 @@
+import sys
 from stats import get_num_words
 from stats import count_character
 from stats import sort_character
 
 # Reads entire book into memory at once since we need the complete text
 # for accurate word count and the file size is manageable
-def get_book_text(filepath):
+def get_book_text(filepath: str) -> str:
     with open(filepath) as book:
         book_contents = book.read()
     return book_contents
@@ -12,14 +13,19 @@ def get_book_text(filepath):
 # Coordinates the program flow by keeping functions separate and focused:
 # get_book_text handles file operations while get_word_count focuses on text analysis
 def main():
-    book_text = get_book_text("books/frankenstein.txt")
+    # Checks if there are 2 entries total
+    if len(sys.argv) != 2: 
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book_text = get_book_text(sys.argv[1])
     num_words = get_num_words(book_text)
     num_char = count_character(book_text)
     sorted_char_counts = sort_character(num_char)
 
     # Title section
     print("============ BOOKBOT ============")
-    print("Analyzing book found at books/frankenstein.txt...")
+    print(f"Analyzing book found at {sys.argv[1]}...")
 
     # Word count section
     print("----------- Word Count ----------")
@@ -28,11 +34,10 @@ def main():
     # Character count section
     print("--------- Character Count -------") 
     
-    # Loop through the sorted list of dictionaires and print each key-value pair from largets to smallest
-    for char_dict in sorted_char_counts:
-        for char, count in char_dict.items(): #Unpack the single key-value pair
-            if char.isalpha(): # Skip non-alphabetical characters
-                print(f"{char}: {count}")
+    # Print character counts in descending order, alphabetical characters only
+    for char, count in sorted_char_counts:
+        if char.isalpha():
+            print(f"{char}: {count}")
     
     # Footer section
     print("============= END ===============")
